@@ -23,10 +23,10 @@ def get_requirements(file_path:str)->List[str]:
     return requirements
 
 setup(
-    name = 'mlproject_regression',
+    name = 'Gemstone Price Prediction',
     version= '0.0.1',
-    author='Utkarsh Gaikwad',
-    author_email='gaikwadujg@gmail.com',
+    author='Raju Meher',
+    author_email='minitable2023@gmail.com',
     packages = find_packages(),
     install_requires = get_requirements('requirements.txt')
 )
