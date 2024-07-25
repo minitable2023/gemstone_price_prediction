@@ -27,23 +27,30 @@ class ModelTrainer:
     def initiate_model_training(self,train_array,test_array):
         try:
             logging.info('Spliting dependent and independent variables from train and test data')
-            xtrain = train_array[:,:-1]
-            ytrain = train_array[:,-1]
-            xtest = test_array[:,:-1]
-            ytest = test_array[:,-1]
+            xtrain, ytrain, xtest, ytest = (
+                train_array[:,:-1],
+                train_array[:,-1],
+                test_array[:,:-1],
+                test_array[:,-1]
+            )
+            logging.info('Spliting done')
+
+            logging.info('Model Selection Started')
 
             models = {
                 'Linear Regression': LinearRegression(),
+                # 'SVR': SVR(),
+                # 'Lasso': Lasso(),
+                # 'Ridge': Ridge(),
                 'K-Neighbors Regressor': KNeighborsRegressor(),
                 'Random Forest Regressor': RandomForestRegressor(),
                 'AdaBoost Regressor': AdaBoostRegressor(),
                 'Gradient Boosting Regressor': GradientBoostingRegressor(),
-                'Decision Tree': DecisionTreeRegressor(),
-                'SVR': SVR(),
-                'Lasso': Lasso(),
-                'Ridge': Ridge(),
+                'Decision Tree': DecisionTreeRegressor(), 
             }
-            model_report:dict=evaluate_models(xtrain,ytrain,xtest,ytest,models)
+
+            logging.info('Diverted to evaluate_models in utils')
+            model_report=evaluate_models(xtrain,ytrain,xtest,ytest,models)
 
             print(model_report)
             print('\n====================================================\n')
@@ -148,4 +155,5 @@ class ModelTrainer:
 
 
         except Exception as e:
+            logging.info('Exception occured in Initiate_Model_Training')
             raise CustomException(e,sys)

@@ -22,14 +22,14 @@ def save_object(file_path,obj):
     
 
 def evaluate_models(xtrain,ytrain,xtest,ytest,models):
+    logging.info('Evaluate_model Started')
     try:
         report = {}
-        for i in range(len(models)):
+        for i in range(len(list(models))):
             model = list(models.values())[i]
             model.fit(xtrain,ytrain)
 
             ytrain_pred = model.predict(xtrain)
-
             ytest_pred = model.predict(xtest)
 
             train_model_score = r2_score(ytrain,ytrain_pred)
@@ -37,9 +37,13 @@ def evaluate_models(xtrain,ytrain,xtest,ytest,models):
 
             report[list(models.keys())[i]] = test_model_score
 
+            logging.info('Score recieved')
+
         return report
+        
 
     except Exception as e:
+        logging.info('Exception occured in evaluate_models')
         raise CustomException(e,sys)
     
 def model_metrics(true,pred):
